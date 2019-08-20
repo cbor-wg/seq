@@ -2,7 +2,9 @@
 
 This is the working area for the IETF [CBOR Working Group](https://datatracker.ietf.org/wg/cbor/documents/) Internet-Draft, "Concise Binary Object Representation (CBOR) Sequences".
 
-* [Editor's Copy](https://cbor-wg.github.io/seq/#go.draft-ietf-cbor-sequence.html)
+* [Editor's
+  Copy](https://cbor-wg.github.io/seq/#go.draft-ietf-cbor-sequence.html)
+  [![Build Status master](https://travis-ci.org/cbor-wg/seq.svg?branch=master)](https://travis-ci.org/cbor-wg/seq)
 * [Working Group Draft](https://tools.ietf.org/html/draft-ietf-cbor-sequence)
 * [Compare Editor's Copy to Working Group Draft](https://cbor-wg.github.io/seq/#go.draft-ietf-cbor-sequence.diff)
 
