@@ -101,7 +101,8 @@ defined as either
   followed by a CBOR Sequence.
 
 In short, concatenating zero or more encoded CBOR data items generates
-a CBOR Sequence.
+a CBOR Sequence.  (Consequently, concatenating zero or more CBOR
+Sequences also results in a CBOR Sequence.)
 
 There is no end of sequence indicator.  (If one is desired,
 CBOR-encoding an array of the CBOR data model values being encoded ---
