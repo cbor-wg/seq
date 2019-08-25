@@ -111,6 +111,13 @@ employing either a definite or an indefinite length encoding --- as a
 single CBOR data item may actually be the more appropriate
 representation.)
 
+CBOR Sequences, unlike JSON Text Sequences {{-jsq}}, do not use a
+marker between items.  This is possible because CBOR encoded data
+items are self-delimiting and the end can always be calculated.  (Note
+that, while the early object/array-only form of JSON was
+self-delimiting as well, this stopped being the case when simple
+values such as single numbers were made valid JSON documents.)
+
 This specification makes use of the fact that CBOR data items are
 self-delimiting (there is no delimiter used between items, as there is
 in JSON Text Sequences {{-jsq}}).
