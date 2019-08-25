@@ -157,11 +157,11 @@ Internet-Draft               CBOR Sequences                  August 2019
    delimiting as well, this stopped being the case when simple values
    such as single numbers were made valid JSON documents.)
 
-   This specification makes use of the fact that CBOR data items are
-   self-delimiting (there is no delimiter used between items, as there
-   is in JSON Text Sequences [RFC7464]).
-
    Decoding a CBOR Sequence works as follows:
+
+   o  If the CBOR Sequence is an empty sequence of bytes, the result is
+      an empty sequence of CBOR data model values.
+
 
 
 
@@ -169,9 +169,6 @@ Bormann                 Expires February 26, 2020               [Page 3]
 
 Internet-Draft               CBOR Sequences                  August 2019
 
-
-   o  If the CBOR Sequence is an empty sequence of bytes, the result is
-      an empty sequence of CBOR data model values.
 
    o  Otherwise, decode a single CBOR data item from the bytes of the
       CBOR sequence, and insert the resulting CBOR data model value at
@@ -218,6 +215,9 @@ Internet-Draft               CBOR Sequences                  August 2019
    In CDDL [RFC8610], CBOR sequences are already supported as contents
    of byte strings using the ".cborseq" control operator (Section 3.8.4
    of [RFC8610]), by employing an array as the controller type:
+
+
+
 
 
 

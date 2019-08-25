@@ -423,16 +423,15 @@ ul.toc li {
 <p id="rfc.section.2.p.3">In short, concatenating zero or more encoded CBOR data items generates a CBOR Sequence.  (Consequently, concatenating zero or more CBOR Sequences also results in a CBOR Sequence.)</p>
 <p id="rfc.section.2.p.4">There is no end of sequence indicator.  (If one is desired, CBOR-encoding an array of the CBOR data model values being encoded &#8212; employing either a definite or an indefinite length encoding &#8212; as a single CBOR data item may actually be the more appropriate representation.)</p>
 <p id="rfc.section.2.p.5">CBOR Sequences, unlike JSON Text Sequences <a href="#RFC7464" class="xref">[RFC7464]</a>, do not use a marker between items.  This is possible because CBOR encoded data items are self-delimiting and the end can always be calculated.  (Note that, while the early object/array-only form of JSON was self-delimiting as well, this stopped being the case when simple values such as single numbers were made valid JSON documents.)</p>
-<p id="rfc.section.2.p.6">This specification makes use of the fact that CBOR data items are self-delimiting (there is no delimiter used between items, as there is in JSON Text Sequences <a href="#RFC7464" class="xref">[RFC7464]</a>).</p>
-<p id="rfc.section.2.p.7">Decoding a CBOR Sequence works as follows:</p>
+<p id="rfc.section.2.p.6">Decoding a CBOR Sequence works as follows:</p>
 <p></p>
 
 <ul>
 <li>If the CBOR Sequence is an empty sequence of bytes, the result is an empty sequence of CBOR data model values.</li>
 <li>Otherwise, decode a single CBOR data item from the bytes of the CBOR sequence, and insert the resulting CBOR data model value at the start of the result of decoding the rest of the bytes as a CBOR sequence.  (A streaming decoder would therefore simply deliver zero or more CBOR data model values, each of which as soon as the bytes making it up are available.)</li>
 </ul>
-<p id="rfc.section.2.p.9">This means that if any data item in the sequence is not well-formed, it is not possible to reliably decode the rest of the sequence.  (An implementation may be able to recover from some errors in a sequence of bytes that is almost, but not entirely a well-formed encoded CBOR data item.  Handling malformed data is outside the scope of this specification.)</p>
-<p id="rfc.section.2.p.10">This also means that the CBOR Sequence format can reliably detect truncation of the bytes making up the last CBOR data item in the sequence, but not entirely missing CBOR data items at the end.  A CBOR Sequence decoder that is used for consuming streaming CBOR Sequence data may simply pause for more data (e.g., by suspending and later resuming decoding) in case a truncated final item is being received.</p>
+<p id="rfc.section.2.p.8">This means that if any data item in the sequence is not well-formed, it is not possible to reliably decode the rest of the sequence.  (An implementation may be able to recover from some errors in a sequence of bytes that is almost, but not entirely a well-formed encoded CBOR data item.  Handling malformed data is outside the scope of this specification.)</p>
+<p id="rfc.section.2.p.9">This also means that the CBOR Sequence format can reliably detect truncation of the bytes making up the last CBOR data item in the sequence, but not entirely missing CBOR data items at the end.  A CBOR Sequence decoder that is used for consuming streaming CBOR Sequence data may simply pause for more data (e.g., by suspending and later resuming decoding) in case a truncated final item is being received.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#the-cbor-seq-structured-syntax-suffix" id="the-cbor-seq-structured-syntax-suffix">The &#8220;+cbor-seq&#8221; Structured Syntax Suffix</a>
 </h1>
