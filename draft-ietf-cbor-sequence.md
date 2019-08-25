@@ -77,12 +77,13 @@ substructures of a data item incrementally (or a
 streaming encoder able to encode from substructures incrementally).
 
 This document defines and registers the "application/cbor-seq" media
-type in the media type registry.  Media type structured syntax
-suffixes {{-mediatype-reg}} were introduced as a way for a media type
-to signal that it is based on another media type as its foundation.
-CBOR {{-cbor}} defines the "+cbor" structured syntax suffix.  This
-document defines and registers the "+cbor-seq" structured syntax
-suffix in the "Structured Syntax Suffix Registry".
+type in the media type registry, along with a CoAP Content-Format
+identifier.  Media type structured syntax suffixes {{-mediatype-reg}}
+were introduced as a way for a media type to signal that it is based
+on another media type as its foundation.  CBOR {{-cbor}} defines the
+"+cbor" structured syntax suffix.  This document defines and registers
+the "+cbor-seq" structured syntax suffix in the "Structured Syntax
+Suffix Registry".
 
 ## Conventions Used in This Document
 
