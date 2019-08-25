@@ -288,7 +288,8 @@ ul.toc li {
 <link href="#rfc.section.3" rel="Chapter" title="3 The &#8220;+cbor-seq&#8221; Structured Syntax Suffix">
 <link href="#rfc.section.4" rel="Chapter" title="4 Practical Considerations">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 Specifying CBOR Sequences in CDDL">
-<link href="#rfc.section.4.2" rel="Chapter" title="4.2 Optimizing CBOR Sequences for Skipping Elements">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 Diagnostic Notation">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Optimizing CBOR Sequences for Skipping Elements">
 <link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
 <link href="#rfc.section.6" rel="Chapter" title="6 IANA Considerations">
 <link href="#rfc.section.6.1" rel="Chapter" title="6.1 Media Type">
@@ -306,7 +307,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Bormann, C." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-sequence-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-08-20" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-08-25" />
   <meta name="dct.abstract" content="This document describes the Concise Binary Object Representation (CBOR) Sequence format and associated media type &#8220;application/cbor-seq&#8221;.  A CBOR Sequence consists of any number of encoded CBOR data items, simply concatenated in sequence.Structured syntax suffixes for media types allow other media types to build on them and make it explicit that they are built on an existing media type as their foundation.  This specification defines and registers &#8220;+cbor-seq&#8221; as a structured syntax suffix for CBOR Sequences." />
   <meta name="description" content="This document describes the Concise Binary Object Representation (CBOR) Sequence format and associated media type &#8220;application/cbor-seq&#8221;.  A CBOR Sequence consists of any number of encoded CBOR data items, simply concatenated in sequence.Structured syntax suffixes for media types allow other media types to build on them and make it explicit that they are built on an existing media type as their foundation.  This specification defines and registers &#8220;+cbor-seq&#8221; as a structured syntax suffix for CBOR Sequences." />
 
@@ -327,10 +328,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">August 20, 2019</td>
+<td class="right">August 25, 2019</td>
 </tr>
 <tr>
-<td class="left">Expires: February 21, 2020</td>
+<td class="left">Expires: February 26, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -348,7 +349,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on February 21, 2020.</p>
+<p>This Internet-Draft will expire on February 26, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -370,7 +371,9 @@ ul.toc li {
 </li>
 <ul><li>4.1.   <a href="#rfc.section.4.1">Specifying CBOR Sequences in CDDL</a>
 </li>
-<li>4.2.   <a href="#rfc.section.4.2">Optimizing CBOR Sequences for Skipping Elements</a>
+<li>4.2.   <a href="#rfc.section.4.2">Diagnostic Notation</a>
+</li>
+<li>4.3.   <a href="#rfc.section.4.3">Optimizing CBOR Sequences for Skipping Elements</a>
 </li>
 </ul><li>5.   <a href="#rfc.section.5">Security Considerations</a>
 </li>
@@ -401,7 +404,7 @@ ul.toc li {
 </h1>
 <p id="rfc.section.1.p.1">The Concise Binary Object Representation (CBOR) <a href="#RFC7049" class="xref">[RFC7049]</a> can be used for serialization of data in the JSON <a href="#RFC8259" class="xref">[RFC8259]</a> data model or in its own, somewhat expanded data model.  When serializing a sequence of such values, it is sometimes convenient to have a format where these sequences can simply be concatenated to obtain a serialization of the concatenated sequence of values, or to encode a sequence of values that might grow at the end by just appending further CBOR data items.</p>
 <p id="rfc.section.1.p.2">This document describes the concept and format of &#8220;CBOR Sequences&#8221;, which are composed of zero or more encoded CBOR data items.  CBOR Sequences can be consumed (and produced) incrementally without requiring a streaming CBOR parser that is able to deliver substructures of a data item incrementally (or a streaming encoder able to encode from substructures incrementally).</p>
-<p id="rfc.section.1.p.3">This document defines and registers the &#8220;application/cbor-seq&#8221; media type in the media type registry.  Media type structured syntax suffixes <a href="#RFC6838" class="xref">[RFC6838]</a> were introduced as a way for a media type to signal that it is based on another media type as its foundation.  CBOR <a href="#RFC7049" class="xref">[RFC7049]</a> defines the &#8220;+cbor&#8221; structured syntax suffix.  This document defines and registers the &#8220;+cbor-seq&#8221; structured syntax suffix in the &#8220;Structured Syntax Suffix Registry&#8221;.</p>
+<p id="rfc.section.1.p.3">This document defines and registers the &#8220;application/cbor-seq&#8221; media type in the media type registry, along with a CoAP Content-Format identifier.  Media type structured syntax suffixes <a href="#RFC6838" class="xref">[RFC6838]</a> were introduced as a way for a media type to signal that it is based on another media type as its foundation.  CBOR <a href="#RFC7049" class="xref">[RFC7049]</a> defines the &#8220;+cbor&#8221; structured syntax suffix.  This document defines and registers the &#8220;+cbor-seq&#8221; structured syntax suffix in the &#8220;Structured Syntax Suffix Registry&#8221;.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#conventions-used-in-this-document" id="conventions-used-in-this-document">Conventions Used in This Document</a>
 </h1>
@@ -417,18 +420,19 @@ ul.toc li {
 <li>an empty (zero-length) sequence of bytes</li>
 <li>the sequence of bytes making up an encoded CBOR data item <a href="#RFC7049" class="xref">[RFC7049]</a>, followed by a CBOR Sequence.</li>
 </ul>
-<p id="rfc.section.2.p.3">In short, concatenating zero or more encoded CBOR data items generates a CBOR Sequence.</p>
+<p id="rfc.section.2.p.3">In short, concatenating zero or more encoded CBOR data items generates a CBOR Sequence.  (Consequently, concatenating zero or more CBOR Sequences also results in a CBOR Sequence.)</p>
 <p id="rfc.section.2.p.4">There is no end of sequence indicator.  (If one is desired, CBOR-encoding an array of the CBOR data model values being encoded &#8212; employing either a definite or an indefinite length encoding &#8212; as a single CBOR data item may actually be the more appropriate representation.)</p>
-<p id="rfc.section.2.p.5">This specification makes use of the fact that CBOR data items are self-delimiting (there is no delimiter used between items, as there is in JSON Text Sequences <a href="#RFC7464" class="xref">[RFC7464]</a>).</p>
-<p id="rfc.section.2.p.6">Decoding a CBOR Sequence works as follows:</p>
+<p id="rfc.section.2.p.5">CBOR Sequences, unlike JSON Text Sequences <a href="#RFC7464" class="xref">[RFC7464]</a>, do not use a marker between items.  This is possible because CBOR encoded data items are self-delimiting and the end can always be calculated.  (Note that, while the early object/array-only form of JSON was self-delimiting as well, this stopped being the case when simple values such as single numbers were made valid JSON documents.)</p>
+<p id="rfc.section.2.p.6">This specification makes use of the fact that CBOR data items are self-delimiting (there is no delimiter used between items, as there is in JSON Text Sequences <a href="#RFC7464" class="xref">[RFC7464]</a>).</p>
+<p id="rfc.section.2.p.7">Decoding a CBOR Sequence works as follows:</p>
 <p></p>
 
 <ul>
 <li>If the CBOR Sequence is an empty sequence of bytes, the result is an empty sequence of CBOR data model values.</li>
-<li>Otherwise, decode a single CBOR data item from the bytes of the CBOR sequence, and insert the resulting CBOR data model value at the start of the result of decoding the rest of the bytes as a CBOR sequence.  (A streaming decoder would therefore simply deliver a sequence of CBOR data model values, each of which as soon as the bytes making it up are available.)</li>
+<li>Otherwise, decode a single CBOR data item from the bytes of the CBOR sequence, and insert the resulting CBOR data model value at the start of the result of decoding the rest of the bytes as a CBOR sequence.  (A streaming decoder would therefore simply deliver zero or more CBOR data model values, each of which as soon as the bytes making it up are available.)</li>
 </ul>
-<p id="rfc.section.2.p.8">This means that if any data item in the sequence is not well-formed, it is not possible to reliably decode the rest of the sequence.  (An implementation may be able to recover from some errors in a sequence of bytes that is almost, but not entirely a well-formed encoded CBOR data item.  Handling malformed data is outside the scope of this specification.)</p>
-<p id="rfc.section.2.p.9">This also means that the CBOR Sequence format can reliably detect truncation of the bytes making up the last CBOR data item in the sequence, but not entirely missing CBOR data items at the end.  A CBOR Sequence decoder that is used for consuming streaming CBOR Sequence data may simply pause for more data (e.g., by suspending and later resuming decoding) in case a truncated final item is being received.</p>
+<p id="rfc.section.2.p.9">This means that if any data item in the sequence is not well-formed, it is not possible to reliably decode the rest of the sequence.  (An implementation may be able to recover from some errors in a sequence of bytes that is almost, but not entirely a well-formed encoded CBOR data item.  Handling malformed data is outside the scope of this specification.)</p>
+<p id="rfc.section.2.p.10">This also means that the CBOR Sequence format can reliably detect truncation of the bytes making up the last CBOR data item in the sequence, but not entirely missing CBOR data items at the end.  A CBOR Sequence decoder that is used for consuming streaming CBOR Sequence data may simply pause for more data (e.g., by suspending and later resuming decoding) in case a truncated final item is being received.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#the-cbor-seq-structured-syntax-suffix" id="the-cbor-seq-structured-syntax-suffix">The &#8220;+cbor-seq&#8221; Structured Syntax Suffix</a>
 </h1>
@@ -455,9 +459,20 @@ my-element = my-foo / my-bar
 </pre>
 <p id="rfc.section.4.1.p.3">(Future versions of CDDL may provide a notation for top-level CBOR sequences, e.g. by using a group as the top-level rule in a CDDL specification.)</p>
 <h1 id="rfc.section.4.2">
-<a href="#rfc.section.4.2">4.2.</a> <a href="#optimizing-cbor-sequences-for-skipping-elements" id="optimizing-cbor-sequences-for-skipping-elements">Optimizing CBOR Sequences for Skipping Elements</a>
+<a href="#rfc.section.4.2">4.2.</a> <a href="#diagnostic-notation" id="diagnostic-notation">Diagnostic Notation</a>
 </h1>
-<p id="rfc.section.4.2.p.1">In certain applications, being able to efficiently skip an element without the need for decoding its substructure, or efficiently fanning out elements to multi-threaded decoding processes, is of the utmost importance.  For these applications, byte strings (which carry length information in bytes) containing embedded CBOR can be used as the elements of a CBOR sequence:</p>
+<p id="rfc.section.4.2.p.1">CBOR diagnostic notation (see Section 6 of <a href="#RFC7049" class="xref">[RFC7049]</a>) or extended diagnostic notation (Appendix G of <a href="#RFC8610" class="xref">[RFC8610]</a>) also does not provide for unadorned CBOR Sequences at this time (the latter does provide for CBOR Sequences embedded in a byte string in Appendix G.3 of <a href="#RFC8610" class="xref">[RFC8610]</a>).</p>
+<p id="rfc.section.4.2.p.2">In a similar spirit to the recommendation for CDDL above, this specification recommends enclosing the CBOR data items in an array.  In a more informal setting, where the boundaries within which the notation is used are obvious, it is also possible to leave off the outer brackets for this array, as shown in these two examples:</p>
+<pre>
+[1, 2, 3]
+
+1, 2, 3
+</pre>
+<p id="rfc.section.4.2.p.3">Note that it is somewhat difficult to discuss zero-length CBOR Sequences in the latter form.</p>
+<h1 id="rfc.section.4.3">
+<a href="#rfc.section.4.3">4.3.</a> <a href="#optimizing-cbor-sequences-for-skipping-elements" id="optimizing-cbor-sequences-for-skipping-elements">Optimizing CBOR Sequences for Skipping Elements</a>
+</h1>
+<p id="rfc.section.4.3.p.1">In certain applications, being able to efficiently skip an element without the need for decoding its substructure, or efficiently fanning out elements to multi-threaded decoding processes, is of the utmost importance.  For these applications, byte strings (which carry length information in bytes) containing embedded CBOR can be used as the elements of a CBOR sequence:</p>
 <pre>
 ; This defines an array of CBOR byte strings, the elements of which
 ; are to be used in a CBOR sequence:
@@ -465,7 +480,7 @@ my-sequence = [* my-element]
 my-element = bytes .cbor my-element-structure
 my-element-structure = my-foo / my-bar
 </pre>
-<p id="rfc.section.4.2.p.2">Within limits, this may also enable recovering from elements that internally are not well-formed &#8212; the limitation is that the sequence of byte strings does need to be well-formed as such.</p>
+<p id="rfc.section.4.3.p.2">Within limits, this may also enable recovering from elements that internally are not well-formed &#8212; the limitation is that the sequence of byte strings does need to be well-formed as such.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
