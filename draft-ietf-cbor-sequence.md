@@ -189,6 +189,29 @@ my-element = my-foo / my-bar
 sequences, e.g. by using a group as the top-level rule in a CDDL
 specification.)
 
+## Diagnostic Notation
+
+CBOR diagnostic notation (see Section 6 of {{-cbor}}) or extended
+diagnostic notation (Appendix G of {{-cddl}}) also does not provide
+for unadorned CBOR Sequences at this time (the latter does provide for
+CBOR Sequences embedded in a byte string in Appendix G.3 of
+{{-cddl}}).
+
+In a similar spirit to the recommendation for CDDL above, this
+specification recommends enclosing the CBOR data items in an array.
+In a more informal setting, where the boundaries within which the
+notation is used are obvious, it is also possible to leave off the
+outer brackets for this array, as shown in these two examples:
+
+~~~~ CBORdiag
+[1, 2, 3]
+
+1, 2, 3
+~~~~
+
+Note that it is somewhat difficult to discuss zero-length CBOR
+Sequences in the latter form.
+
 ## Optimizing CBOR Sequences for Skipping Elements
 
 In certain applications, being able to efficiently skip an element
