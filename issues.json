@@ -1,0 +1,52 @@
+[
+
+  {
+    "url": "https://api.github.com/repos/cbor-wg/seq/issues/1",
+    "repository_url": "https://api.github.com/repos/cbor-wg/seq",
+    "labels_url": "https://api.github.com/repos/cbor-wg/seq/issues/1/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cbor-wg/seq/issues/1/comments",
+    "events_url": "https://api.github.com/repos/cbor-wg/seq/issues/1/events",
+    "html_url": "https://github.com/cbor-wg/seq/issues/1",
+    "id": 483635598,
+    "node_id": "MDU6SXNzdWU0ODM2MzU1OTg=",
+    "number": 1,
+    "title": "Formatting in Section 6.3 broken for .txt output",
+    "user": {
+      "login": "cabo",
+      "id": 23118,
+      "node_id": "MDQ6VXNlcjIzMTE4",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/23118?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/cabo",
+      "html_url": "https://github.com/cabo",
+      "followers_url": "https://api.github.com/users/cabo/followers",
+      "following_url": "https://api.github.com/users/cabo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/cabo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/cabo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/cabo/subscriptions",
+      "organizations_url": "https://api.github.com/users/cabo/orgs",
+      "repos_url": "https://api.github.com/users/cabo/repos",
+      "events_url": "https://api.github.com/users/cabo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/cabo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-08-21T20:28:17Z",
+    "updated_at": "2019-08-21T20:28:17Z",
+    "closed_at": null,
+    "author_association": "COLLABORATOR",
+    "body": "Spurious blank lines appear to be an xml2rfc artifact -- HTML is OK."
+  }
+
+]
