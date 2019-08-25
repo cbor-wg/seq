@@ -118,10 +118,6 @@ that, while the early object/array-only form of JSON was
 self-delimiting as well, this stopped being the case when simple
 values such as single numbers were made valid JSON documents.)
 
-This specification makes use of the fact that CBOR data items are
-self-delimiting (there is no delimiter used between items, as there is
-in JSON Text Sequences {{-jsq}}).
-
 Decoding a CBOR Sequence works as follows:
 
 * If the CBOR Sequence is an empty sequence of bytes, the result is an
