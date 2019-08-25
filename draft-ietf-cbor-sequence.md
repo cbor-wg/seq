@@ -122,9 +122,9 @@ Decoding a CBOR Sequence works as follows:
 * Otherwise, decode a single CBOR data item from the bytes of the CBOR
   sequence, and insert the resulting CBOR data model value at the
   start of the result of decoding the rest of the bytes as a CBOR
-  sequence.  (A streaming decoder would therefore simply deliver a
-  sequence of CBOR data model values, each of which as soon as the
-  bytes making it up are available.)
+  sequence.  (A streaming decoder would therefore simply deliver zero
+  or more CBOR data model values, each of which as soon as the bytes
+  making it up are available.)
 
 This means that if any data item in the sequence is not well-formed,
 it is not possible to reliably decode the rest of the sequence.  (An
