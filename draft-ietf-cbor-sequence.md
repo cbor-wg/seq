@@ -242,6 +242,10 @@ of byte strings does need to be well-formed as such.
 The security considerations of CBOR {{-cbor}} apply.  This format
 provides no cryptographic integrity protection of any kind, but can be
 combined with security specifications such as COSE {{-cose}} to do so.
+(COSE protections can be applied to an entire CBOR sequence or to each
+of the elements of the sequence independently; in the latter case,
+additional effort may be required if there is a need to protect the
+relationship of the elements in the sequence.)
 
 As usual, decoders must operate on input that is assumed to be
 untrusted.  This means that decoders must fail gracefully in the face
