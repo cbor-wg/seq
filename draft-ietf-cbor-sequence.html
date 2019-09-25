@@ -484,7 +484,7 @@ my-element-structure = my-foo / my-bar
 <a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
 <p id="rfc.section.5.p.1">The security considerations of CBOR <a href="#RFC7049" class="xref">[RFC7049]</a> apply.  This format provides no cryptographic integrity protection of any kind, but can be combined with security specifications such as COSE <a href="#RFC8152" class="xref">[RFC8152]</a> to do so.  (COSE protections can be applied to an entire CBOR sequence or to each of the elements of the sequence independently; in the latter case, additional effort may be required if there is a need to protect the relationship of the elements in the sequence.)</p>
-<p id="rfc.section.5.p.2">As usual, decoders must operate on input that is assumed to be untrusted.  This means that decoders must fail gracefully in the face of malicious inputs.</p>
+<p id="rfc.section.5.p.2">As usual, decoders must operate on input that is assumed to be untrusted.  This means that decoders MUST fail gracefully in the face of malicious inputs.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
