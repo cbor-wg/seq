@@ -248,7 +248,7 @@ additional effort may be required if there is a need to protect the
 relationship of the elements in the sequence.)
 
 As usual, decoders must operate on input that is assumed to be
-untrusted.  This means that decoders must fail gracefully in the face
+untrusted.  This means that decoders MUST fail gracefully in the face
 of malicious inputs.
 
 
