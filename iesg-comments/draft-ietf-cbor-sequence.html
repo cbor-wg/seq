@@ -435,7 +435,7 @@ ul.toc li {
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#the-cbor-seq-structured-syntax-suffix" id="the-cbor-seq-structured-syntax-suffix">The &#8220;+cbor-seq&#8221; Structured Syntax Suffix</a>
 </h1>
-<p id="rfc.section.3.p.1">The use case for the &#8220;+cbor-seq&#8221; structured syntax suffix is the same as for &#8220;+cbor&#8221;: It SHOULD be used by a media type when parsing the bytes of the media type object as a CBOR Sequence leads to a meaningful result that is at least sometimes not just a single CBOR data item.  (Without the qualification at the end, this sentence is trivially true for any +cbor media type, which of course should continue to use the &#8220;+cbor&#8221; structured syntax suffix.)</p>
+<p id="rfc.section.3.p.1">The use case for the &#8220;+cbor-seq&#8221; structured syntax suffix is analogous to that for &#8220;+cbor&#8221;: It SHOULD be used by a media type when parsing the bytes of the media type object as a CBOR Sequence leads to a meaningful result that is at least sometimes not just a single CBOR data item.  (Without the qualification at the end, this sentence is trivially true for any +cbor media type, which of course should continue to use the &#8220;+cbor&#8221; structured syntax suffix.)</p>
 <p id="rfc.section.3.p.2">Applications encountering a &#8220;+cbor-seq&#8221; media type can then either simply use generic processing if all they need is a generic view of the CBOR Sequence, or they can use generic CBOR Sequence tools for initial parsing and then implement their own specific processing on top of that generic parsing tool.</p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#practical-considerations" id="practical-considerations">Practical Considerations</a>
