@@ -147,8 +147,8 @@ in case a truncated final item is being received.
 
 # The "+cbor-seq" Structured Syntax Suffix
 
-The use case for the "+cbor-seq" structured syntax suffix is the same
-as for "+cbor": It SHOULD be used by a media type when parsing the
+The use case for the "+cbor-seq" structured syntax suffix is analogous
+to that for "+cbor": It SHOULD be used by a media type when parsing the
 bytes of the media type object as a CBOR Sequence leads to a
 meaningful result that is at least sometimes not just a single CBOR
 data item.  (Without the qualification at the end, this sentence is
