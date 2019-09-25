@@ -428,7 +428,7 @@ ul.toc li {
 
 <ul>
 <li>If the CBOR Sequence is an empty sequence of bytes, the result is an empty sequence of CBOR data model values.</li>
-<li>Otherwise, decode a single CBOR data item from the bytes of the CBOR sequence, and insert the resulting CBOR data model value at the start of the result of decoding the rest of the bytes as a CBOR sequence.  (A streaming decoder would therefore simply deliver zero or more CBOR data model values, each of which as soon as the bytes making it up are available.)</li>
+<li>Otherwise, decode a single CBOR data item from the bytes of the CBOR sequence, and insert the resulting CBOR data model value at the start of the result of repeating this decoding process recursively with the remaining bytes.  (A streaming decoder would therefore simply deliver zero or more CBOR data model values, each as soon as the bytes making it up are available.)</li>
 </ul>
 <p id="rfc.section.2.p.8">This means that if any data item in the sequence is not well-formed, it is not possible to reliably decode the rest of the sequence.  (An implementation may be able to recover from some errors in a sequence of bytes that is almost, but not entirely a well-formed encoded CBOR data item.  Handling malformed data is outside the scope of this specification.)</p>
 <p id="rfc.section.2.p.9">This also means that the CBOR Sequence format can reliably detect truncation of the bytes making up the last CBOR data item in the sequence, but not entirely missing CBOR data items at the end.  A CBOR Sequence decoder that is used for consuming streaming CBOR Sequence data may simply pause for more data (e.g., by suspending and later resuming decoding) in case a truncated final item is being received.</p>
