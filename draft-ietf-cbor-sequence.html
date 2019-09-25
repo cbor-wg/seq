@@ -302,12 +302,12 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.24.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.30.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Bormann, C." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-sequence-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-08-25" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-09-25" />
   <meta name="dct.abstract" content="This document describes the Concise Binary Object Representation (CBOR) Sequence format and associated media type &#8220;application/cbor-seq&#8221;.  A CBOR Sequence consists of any number of encoded CBOR data items, simply concatenated in sequence.Structured syntax suffixes for media types allow other media types to build on them and make it explicit that they are built on an existing media type as their foundation.  This specification defines and registers &#8220;+cbor-seq&#8221; as a structured syntax suffix for CBOR Sequences." />
   <meta name="description" content="This document describes the Concise Binary Object Representation (CBOR) Sequence format and associated media type &#8220;application/cbor-seq&#8221;.  A CBOR Sequence consists of any number of encoded CBOR data items, simply concatenated in sequence.Structured syntax suffixes for media types allow other media types to build on them and make it explicit that they are built on an existing media type as their foundation.  This specification defines and registers &#8220;+cbor-seq&#8221; as a structured syntax suffix for CBOR Sequences." />
 
@@ -328,10 +328,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">August 25, 2019</td>
+<td class="right">September 25, 2019</td>
 </tr>
 <tr>
-<td class="left">Expires: February 26, 2020</td>
+<td class="left">Expires: March 28, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -349,7 +349,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on February 26, 2020.</p>
+<p>This Internet-Draft will expire on March 28, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -428,14 +428,14 @@ ul.toc li {
 
 <ul>
 <li>If the CBOR Sequence is an empty sequence of bytes, the result is an empty sequence of CBOR data model values.</li>
-<li>Otherwise, decode a single CBOR data item from the bytes of the CBOR sequence, and insert the resulting CBOR data model value at the start of the result of decoding the rest of the bytes as a CBOR sequence.  (A streaming decoder would therefore simply deliver zero or more CBOR data model values, each of which as soon as the bytes making it up are available.)</li>
+<li>Otherwise, decode a single CBOR data item from the bytes of the CBOR sequence, and insert the resulting CBOR data model value at the start of the result of repeating this decoding process recursively with the remaining bytes.  (A streaming decoder would therefore simply deliver zero or more CBOR data model values, each as soon as the bytes making it up are available.)</li>
 </ul>
 <p id="rfc.section.2.p.8">This means that if any data item in the sequence is not well-formed, it is not possible to reliably decode the rest of the sequence.  (An implementation may be able to recover from some errors in a sequence of bytes that is almost, but not entirely a well-formed encoded CBOR data item.  Handling malformed data is outside the scope of this specification.)</p>
 <p id="rfc.section.2.p.9">This also means that the CBOR Sequence format can reliably detect truncation of the bytes making up the last CBOR data item in the sequence, but not entirely missing CBOR data items at the end.  A CBOR Sequence decoder that is used for consuming streaming CBOR Sequence data may simply pause for more data (e.g., by suspending and later resuming decoding) in case a truncated final item is being received.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#the-cbor-seq-structured-syntax-suffix" id="the-cbor-seq-structured-syntax-suffix">The &#8220;+cbor-seq&#8221; Structured Syntax Suffix</a>
 </h1>
-<p id="rfc.section.3.p.1">The use case for the &#8220;+cbor-seq&#8221; structured syntax suffix is the same as for &#8220;+cbor&#8221;: It SHOULD be used by a media type when parsing the bytes of the media type object as a CBOR Sequence leads to a meaningful result that is at least sometimes not just a single CBOR data item.  (Without the qualification at the end, this sentence is trivially true for any +cbor media type, which of course should continue to use the &#8220;+cbor&#8221; structured syntax suffix.)</p>
+<p id="rfc.section.3.p.1">The use case for the &#8220;+cbor-seq&#8221; structured syntax suffix is analogous to that for &#8220;+cbor&#8221;: It SHOULD be used by a media type when parsing the bytes of the media type object as a CBOR Sequence leads to a meaningful result that is at least sometimes not just a single CBOR data item.  (Without the qualification at the end, this sentence is trivially true for any +cbor media type, which of course should continue to use the &#8220;+cbor&#8221; structured syntax suffix.)</p>
 <p id="rfc.section.3.p.2">Applications encountering a &#8220;+cbor-seq&#8221; media type can then either simply use generic processing if all they need is a generic view of the CBOR Sequence, or they can use generic CBOR Sequence tools for initial parsing and then implement their own specific processing on top of that generic parsing tool.</p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#practical-considerations" id="practical-considerations">Practical Considerations</a>
@@ -483,7 +483,7 @@ my-element-structure = my-foo / my-bar
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<p id="rfc.section.5.p.1">The security considerations of CBOR <a href="#RFC7049" class="xref">[RFC7049]</a> apply.  This format provides no cryptographic integrity protection of any kind, but can be combined with security specifications such as COSE <a href="#RFC8152" class="xref">[RFC8152]</a> to do so.</p>
+<p id="rfc.section.5.p.1">The security considerations of CBOR <a href="#RFC7049" class="xref">[RFC7049]</a> apply.  This format provides no cryptographic integrity protection of any kind, but can be combined with security specifications such as COSE <a href="#RFC8152" class="xref">[RFC8152]</a> to do so.  (COSE protections can be applied to an entire CBOR sequence or to each of the elements of the sequence independently; in the latter case, additional effort may be required if there is a need to protect the relationship of the elements in the sequence.)</p>
 <p id="rfc.section.5.p.2">As usual, decoders must operate on input that is assumed to be untrusted.  This means that decoders must fail gracefully in the face of malicious inputs.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
